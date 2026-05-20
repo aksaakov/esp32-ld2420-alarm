@@ -1,0 +1,16 @@
+# Arduino
+build/
+*.ino.bin
+*.elf
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# JetBrains
+.idea/
+
+# Arduino IDE temp files
+*.tmp
