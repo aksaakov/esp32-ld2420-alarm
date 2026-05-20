@@ -19,6 +19,8 @@ void setup() {
 
   radar.begin();
 
+  delay(1000);
+
   Serial.println("Connecting to WiFi...");
 
   if (!wifi.connect("ESP32-LD2420-Setup")) {
@@ -41,5 +43,15 @@ void setup() {
 }
 
 void loop() {
+
   webServer.handleClient();
+
+  if (radar.updatePresence()) {
+
+    if (radar.isPresenceDetected()) {
+      Serial.println("Presence detected");
+    } else {
+      Serial.println("Presence cleared");
+    }
+  }
 }
