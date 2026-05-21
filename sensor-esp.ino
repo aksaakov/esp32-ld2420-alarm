@@ -35,10 +35,6 @@ void setup() {
   Serial.print("Chosen IP: ");
   Serial.println(wifi.getIpAddress());
 
-  int rangeOnBoot = radar.readRange();
-  Serial.print("Range on boot: ");
-  Serial.println(rangeOnBoot);
-
   webServer.begin();
   Serial.println("Web server started.");
 
@@ -49,14 +45,12 @@ void loop() {
   webServer.handleClient();
   matter.handleDecommissionButton();
 
+  radar.handleConfigModeTimeout();
+
   if (radar.updatePresence()) {
     bool detected = radar.isPresenceDetected();
 
-    if (detected) {
-      Serial.println("Presence detected");
-    } else {
-      Serial.println("Presence cleared");
-    }
+    Serial.println(detected ? "Presence detected" : "Presence cleared");
 
     matter.setPresence(detected);
   }
